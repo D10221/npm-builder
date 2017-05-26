@@ -8,7 +8,6 @@ audio/**
 fonts/*
 archive.zip
 update.zip
-**/dist/*
 **/lib/*
 built.log
 packages

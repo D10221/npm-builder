@@ -1,6 +1,6 @@
 ### usage:  
 
-    $node npm-builder [package-filter...] --task [tasknames...] {--taskName} [package-filter?+deps] --build-self --root [cwd] 
+    $node npm-builder [package-filter...] --task [tasknames...] {--taskName} [package-filter?+deps] --root [cwd] 
 
 
 ### it:
@@ -40,10 +40,6 @@ ex:
 
 will run clean only on packageB  
 will run build only on packageA after run on its 'local' depedencies
-
-#### build-self:
-optional   
-trys to call tsc -p . on __dirName to build /src to /built
 
 
 
