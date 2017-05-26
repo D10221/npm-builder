@@ -8,7 +8,8 @@
     "test": "mocha ./test.js",
     "build": "tsc -p .",
     "clean": "rimraf ./built",
-    "rebuild": "npm run clean && npm run build"
+    "rebuild": "npm run clean && npm run build",
+    "release": "rimraf ./dist && tsc -p tsconfig.prod.json"
   },
   "keywords": [],
   "author": "D10221",

@@ -8,16 +8,18 @@ exports.createTask = function (context, exec) {
     var isEnabled = query.isEnabled();
     // if (isEnabled) console.log(query.taskEnabledsDesc());
     var error = null;
-    var code = null;
-    var ret = {
-        name: context.taskName,
-        label: query.taskEnabledsDesc(),
-        state: !isEnabled ? "disabled" : "enabled",
-        isDepedency: false,
-        code: code,
-        error: error
-    };
+    var code = 0;
+    var label = query.taskEnabledsDesc();
+    var state = !isEnabled ? "disabled" : "enabled";
     var run = function (pkg) {
+        var ret = {
+            state: state,
+            label: label,
+            name: context.taskName,
+            isDepedency: false,
+            code: code,
+            error: error
+        };
         ret.isDepedency = query.isDependency(pkg);
         ret.state = !query.isTaskSelectedForPackage(pkg) ? "uselected" : ret.state;
         if (!isEnabled)

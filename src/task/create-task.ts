@@ -2,6 +2,7 @@ import * as shell from "shelljs";
 import { Package } from "../package/Package";
 import { TaskContext } from "../task";
 import { contextQuery } from "./context-query";
+import { TaskResult } from "./task-reulst";
 
 export type Exec = (cmd: string) => { code: number };
 
@@ -14,17 +15,21 @@ export const createTask = (context: TaskContext, exec?: Exec) => {
 
     // if (isEnabled) console.log(query.taskEnabledsDesc());
     const error: Error = null;
-    const code: any = null;
-    const ret = {
-        name: context.taskName,
-        label: query.taskEnabledsDesc(),
-        state: !isEnabled ? "disabled" : "enabled",
-        isDepedency: false,
-        code,
-        error
-    };
+    const code: any = 0;
+    const label = query.taskEnabledsDesc();
+    const state = !isEnabled ? "disabled" : "enabled";
 
-    const run = (pkg: Package) => {
+    const run = (pkg: Package): TaskResult => {
+
+        const ret = {
+            state,
+            label,
+            name: context.taskName,
+            isDepedency: false,
+            code,
+            error
+        };
+
         ret.isDepedency = query.isDependency(pkg);
         ret.state = !query.isTaskSelectedForPackage(pkg) ? "uselected" : ret.state;
         if (!isEnabled) return ret;

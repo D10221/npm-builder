@@ -32,7 +32,12 @@ function (pkg) {
         for (var _i = 0, tasks_1 = tasks; _i < tasks_1.length; _i++) {
             var task = tasks_1[_i];
             var result_1 = task.run(pkg);
-            log.push("Package: " + pkg.name + ", Task: " + task.name + " -> " + result_1);
+            if (result_1.code !== 0)
+                throw (result_1.error ||
+                    new Error("Package: " + pkg.name + ", task: " + task.name + ", failed"));
+            log.push("Package: " + pkg.name + ", " +
+                ("Task: " + task.name + " -> ") +
+                (result_1.state + " " + (result_1.isDepedency ? "dependency" : "")));
         }
         return true;
     }

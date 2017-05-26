@@ -9,6 +9,7 @@ import { packageDir } from "./package/package-dir";
 
 import { Task, createTask } from "./task";
 import { isNullOrUndefined } from "util";
+import { TaskResult } from "./task/task-reulst";
 
 console.log(process.argv.slice(2).join(" "));
 
@@ -35,8 +36,14 @@ const walker = Walker(localPackages,
         try {
             shell.cd(packageDir(pkg));
             for (const task of tasks) {
-                const result = task.run(pkg);
-                log.push(`Package: ${pkg.name}, Task: ${task.name} -> ${result}`);
+                const result: TaskResult = task.run(pkg);
+                if (result.code !== 0)
+                    throw (result.error ||
+                         new Error(`Package: ${pkg.name}, task: ${task.name}, failed`));
+                log.push(
+                    `Package: ${pkg.name}, ` +
+                    `Task: ${task.name} -> ` +
+                    `${result.state} ${result.isDepedency ? "dependency" : ""}`);
             }
             return true;
         } catch (e) {

@@ -16,15 +16,15 @@ export const contextQuery = (context: TaskContext) => {
      * Context tasks names
      */
     const taskNames = (): string => {
-        return context.tasks && context.tasks.length ?
-            context.tasks.reduce((a, b) => a + ", " + +b) : "<empty>";
+        return context.tasks && context.tasks.length > 0 ?
+            context.tasks.join() : null;
     };
 
     if (isNull(context.taskName) || context.taskName.trim() === "") {
         throw new Error("Bad Task Name");
     }
     if (!context.tasks.length || context.tasks.reduce((a, b) => a + b).trim() === "") {
-        throw new Error(`this Task: '${context.taskName}' not Found in Tasks: ${taskNames()}`);
+        throw new Error(`this Task: '${context.taskName}' not Found in Tasks: ${taskNames() || "<empty>"}`);
     }
     const findPackageByName = (name: string) => {
         return context.packages.find(p => p.name === name);
@@ -63,6 +63,11 @@ export const contextQuery = (context: TaskContext) => {
         }
     }
 
+    const inTasks = (name: string) => {
+        return Array.isArray(context.tasks)
+            && context.tasks.length > 0
+            && context.tasks.indexOf(name) !== -1;
+    };
     /**
      * no current use for disabled
      * ...when tasks are created from command line flags/switches
@@ -70,7 +75,7 @@ export const contextQuery = (context: TaskContext) => {
     const isEnabled = () => {
         return !context.disabled &&
             // this doesn't happen currently
-            taskNames().indexOf(context.taskName) !== -1;
+            inTasks(context.taskName);
     };
 
     const findInFilterList = (pkg: Package) => {

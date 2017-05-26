@@ -13,14 +13,14 @@ exports.contextQuery = function (context) {
      * Context tasks names
      */
     var taskNames = function () {
-        return context.tasks && context.tasks.length ?
-            context.tasks.reduce(function (a, b) { return a + ", " + +b; }) : "<empty>";
+        return context.tasks && context.tasks.length > 0 ?
+            context.tasks.join() : null;
     };
     if (util_1.isNullOrUndefined(context.taskName) || context.taskName.trim() === "") {
         throw new Error("Bad Task Name");
     }
     if (!context.tasks.length || context.tasks.reduce(function (a, b) { return a + b; }).trim() === "") {
-        throw new Error("this Task: '" + context.taskName + "' not Found in Tasks: " + taskNames());
+        throw new Error("this Task: '" + context.taskName + "' not Found in Tasks: " + (taskNames() || "<empty>"));
     }
     var findPackageByName = function (name) {
         return context.packages.find(function (p) { return p.name === name; });
@@ -53,6 +53,11 @@ exports.contextQuery = function (context) {
             }
         }
     }
+    var inTasks = function (name) {
+        return Array.isArray(context.tasks)
+            && context.tasks.length > 0
+            && context.tasks.indexOf(name) !== -1;
+    };
     /**
      * no current use for disabled
      * ...when tasks are created from command line flags/switches
@@ -60,7 +65,7 @@ exports.contextQuery = function (context) {
     var isEnabled = function () {
         return !context.disabled &&
             // this doesn't happen currently
-            taskNames().indexOf(context.taskName) !== -1;
+            inTasks(context.taskName);
     };
     var findInFilterList = function (pkg) {
         return filterList.find(function (x) { return x === pkg.name; });
