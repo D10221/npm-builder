@@ -1,0 +1,14 @@
+{
+  "name": "one",
+  "version": "1.0.0",
+  "description": "",
+  "main": "built/index.js",
+  "scripts": {
+    "test": "mocha ./test.js",
+    "build": "tsc -p .",
+    "clean": "rimraf ./built",
+    "start": "node ./"
+  },
+  "author": "",
+  "license": "ISC"
+}
