@@ -31,10 +31,9 @@ sets cwd to start walking the packages,
 defaults to 'cwd()'.
 
 ### taskName: 
-optional 
-filter specifiied task name on provided packages
-if '+deps' is provided will call task on dependecies prior to the actual package
-task must be declared with --task
+optional  
+filter specifiied task name on provided packages    
+if '+deps' is provided will call task on dependecies prior to the actual package   
 ex:
     
      packageA packageB --task clean build  --clean  packageB --build packageA +deps
@@ -43,7 +42,7 @@ will run clean only on packageB
 will run build only on packageA after run on its 'local' depedencies
 
 #### build-self:
-optional 
+optional   
 trys to call tsc -p . on __dirName to build /src to /built
 
 
