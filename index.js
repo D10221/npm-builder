@@ -33,4 +33,4 @@ const build = () => {
 }
 
 if (isDebug && !isBuilt || forceBuild) build();
-require("./built/index");
+require("./dist/index");
