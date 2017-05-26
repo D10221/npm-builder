@@ -1,0 +1,13 @@
+**/node_modules/*
+**/.vscode/*
+**/out/*
+**/built/*
+*.log
+audio/**
+**/.secrets/*
+fonts/*
+archive.zip
+update.zip
+**/dist/*
+**/lib/*
+built.log

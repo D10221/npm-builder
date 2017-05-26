@@ -1,0 +1,27 @@
+{
+  "name": "npm-builder",
+  "version": "1.0.0",
+  "description": "npm builder scripts",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "test": "mocha ./test.js",
+    "build": "tsc -p .",
+    "clean": "rimraf ./built",
+    "rebuild": "npm run clean && npm run build"
+  },
+  "keywords": [],
+  "author": "D10221",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/mocha": "^2.2.41",
+    "@types/shelljs": "^0.7.1",
+    "@types/winston": "^2.3.2"
+  },
+  "dependencies": {
+    "mocha": "^3.4.2",
+    "shelljs": "^0.7.7",
+    "typescript": "^2.3.3",
+    "winston": "^2.3.1"
+  }
+}
