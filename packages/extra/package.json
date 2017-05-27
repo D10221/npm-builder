@@ -1,0 +1,14 @@
+{
+  "name": "extra",
+  "version": "1.0.0",
+  "description": "a dependency",
+  "main": "built/index.js",
+  "typings": "built/inde.d.ts",
+  "scripts": {
+    "test": "mocha ./test.js",
+    "build": "tsc -p .",
+    "clean": "rimraf ./built"    
+  },
+  "author": "",
+  "license": "ISC"
+}

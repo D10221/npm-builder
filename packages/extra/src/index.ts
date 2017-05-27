@@ -1,0 +1,1 @@
+export const Xyz = process.env.XYZ;

@@ -1,5 +1,5 @@
 const assert = require("assert");
-describe("two", ()=>{
+describe("one", ()=>{
     it("works", ()=>{
         assert.ok(true);
     })
